@@ -6,30 +6,6 @@
 ```r
 options(scipen=1, digits=2)
 library(dplyr)
-```
-
-```
-## Warning: package 'dplyr' was built under R version 3.4.2
-```
-
-```
-## 
-## Attaching package: 'dplyr'
-```
-
-```
-## The following objects are masked from 'package:stats':
-## 
-##     filter, lag
-```
-
-```
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-```
-
-```r
 library(ggplot2)
 
 unzip("activity.zip")
@@ -49,7 +25,7 @@ ggplot(steps.by.date, aes(total.steps)) + geom_histogram() + ggtitle("Histogram 
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-38-1.png)<!-- -->
 
 ```r
 steps.mean <- mean(steps.by.date$total.steps, na.rm = TRUE)
@@ -66,7 +42,7 @@ steps.by.interval <- data.no.na %>% group_by(interval) %>% summarise(mean.steps 
 ggplot(steps.by.interval, aes(interval, mean.steps)) + geom_line() + ggtitle("Average Daily Activity Pattern")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-39-1.png)<!-- -->
 
 ```r
 max.interval <- steps.by.interval$interval[which.max(steps.by.interval$mean.steps)]
@@ -94,7 +70,7 @@ ggplot(steps.by.date.filled, aes(total.steps)) + geom_histogram() + ggtitle("His
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-40-1.png)<!-- -->
 
 ```r
 steps.mean.filled <- mean(steps.by.date.filled$total.steps, na.rm = TRUE)
@@ -117,5 +93,5 @@ steps.by.interval.2 <- data2 %>% group_by(weekday.or.weekend, interval) %>% summ
 ggplot(steps.by.interval.2, aes(interval, mean.steps)) + geom_line() + ggtitle("Average Daily Activity Pattern") + facet_grid(weekday.or.weekend ~ .)
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-41-1.png)<!-- -->
 
