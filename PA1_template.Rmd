@@ -68,6 +68,7 @@ Imputing missing data increases the median to be closer to the mean. It also inc
 data2 <- data.no.na
 data2$dow <- weekdays(data2$date)
 data2$weekday.or.weekend <- if_else(data2$dow %in% c("Saturday", "Sunday"), "Weekend", "Weekday")
+data2$weekday.or.weekend <- factor(data2$weekday.or.weekend)
 steps.by.interval.2 <- data2 %>% group_by(weekday.or.weekend, interval) %>% summarise(mean.steps=mean(steps))
 
 ggplot(steps.by.interval.2, aes(interval, mean.steps)) + geom_line() + ggtitle("Average Daily Activity Pattern") + facet_grid(weekday.or.weekend ~ .)
