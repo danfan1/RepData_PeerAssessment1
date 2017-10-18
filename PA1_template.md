@@ -1,4 +1,9 @@
-# Reproducible Research: Peer Assessment 1
+---
+title: "Reproducible Research: Peer Assessment 1"
+output: 
+  html_document:
+    keep_md: true
+---
 
 
 ## Loading and preprocessing the data
@@ -25,7 +30,7 @@ ggplot(steps.by.date, aes(total.steps)) + geom_histogram() + ggtitle("Histogram 
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-38-1.png)<!-- -->
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png)
 
 ```r
 steps.mean <- mean(steps.by.date$total.steps, na.rm = TRUE)
@@ -42,7 +47,7 @@ steps.by.interval <- data.no.na %>% group_by(interval) %>% summarise(mean.steps 
 ggplot(steps.by.interval, aes(interval, mean.steps)) + geom_line() + ggtitle("Average Daily Activity Pattern")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-39-1.png)<!-- -->
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png)
 
 ```r
 max.interval <- steps.by.interval$interval[which.max(steps.by.interval$mean.steps)]
@@ -70,7 +75,7 @@ ggplot(steps.by.date.filled, aes(total.steps)) + geom_histogram() + ggtitle("His
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-40-1.png)<!-- -->
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
 
 ```r
 steps.mean.filled <- mean(steps.by.date.filled$total.steps, na.rm = TRUE)
@@ -88,10 +93,11 @@ Imputing missing data increases the median to be closer to the mean. It also inc
 data2 <- data.no.na
 data2$dow <- weekdays(data2$date)
 data2$weekday.or.weekend <- if_else(data2$dow %in% c("Saturday", "Sunday"), "Weekend", "Weekday")
+data2$weekday.or.weekend <- factor(data2$weekday.or.weekend)
 steps.by.interval.2 <- data2 %>% group_by(weekday.or.weekend, interval) %>% summarise(mean.steps=mean(steps))
 
 ggplot(steps.by.interval.2, aes(interval, mean.steps)) + geom_line() + ggtitle("Average Daily Activity Pattern") + facet_grid(weekday.or.weekend ~ .)
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-41-1.png)<!-- -->
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png)
 
